@@ -1,0 +1,99 @@
+body {
+   background-color: rgb(22, 22, 22);
+   color: rgb(59, 255, 249);
+   font-family: 'Baloo Bhai 2', cursive;
+}
+.instruct{
+   width: 60%;
+   margin: auto;
+   list-style-type: none;
+}
+.queries {
+   width: 100%;
+
+   margin-bottom: 20px;
+}
+
+.active-cyan-4 input[type=text]:focus:not([readonly]) {
+   padding: 5px;
+   border-radius: 10px;
+   border: 1px solid #4dd0e1;
+   box-shadow: 0 0 0 1px #4dd0e1;
+   color: white;
+}
+
+.active-cyan-3 input[type=text], .active-cyan-3 input[type=submit]  {
+   margin: auto;
+   display: inline-block;
+   background-color: rgb(28, 37, 47);
+   padding: 5px;
+   border-radius: 10px;
+   /* border: 1px solid #4dd0e1; */
+   /* box-shadow: 0 0 0 1px #4dd0e1; */
+}
+
+.card {
+   background-color: rgb(28, 37, 47);
+   padding: 1%;
+}
+.searchBar{
+   margin:auto;
+   width: 100%;
+   color: white;
+}
+
+.searchBar, #name, {
+   background-color: rgb(28, 37, 47);
+   border-radius: 10px;
+   padding: 5px;
+   color: white;
+}
+
+#search, #headline, #buildDB, #readDB, #exportDB, #resetDB {
+   border-radius: 10px;
+   background-color: rgb(28, 37, 47);
+   border: none;
+   color: white;
+   margin-top: 10px;
+   margin-bottom: 10px;
+   padding: 7px;
+}
+
+#search:hover, #headline:hover, #buildDB:hover, #readDB:hover, #exportDB:hover, #resetDB:hover, #name:hover {
+   background-color: rgb(49, 65, 82);
+   transition: .5s;
+   color: rgb(42, 205, 94);
+}
+
+h1 {
+   padding: 20px;
+   /* color: rgb(84, 129, 199); */
+   color: rgb(135, 180, 231);
+   font-family: 'Comfortaa', cursive;
+}
+
+img {
+   text-align: center;
+   border-radius: 5px;
+   margin: auto;
+   max-width: 60%;
+}
+
+.center {
+   margin: auto;
+   padding: 10px;
+}
+
+h4 {
+   padding: 5px;
+   color: rgb(42, 205, 94);
+}
+
+.ng-show {
+  max-height: auto;
+  -webkit-transition: max-height linear 0.9s;
+  -moz-transition: max-height linear 0.9s;
+  -o-transition: max-height linear 0.9s;
+  transition: max-height linear 0.9s;
+  overflow: hidden;
+}
