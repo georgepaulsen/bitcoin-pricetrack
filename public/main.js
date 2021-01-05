@@ -2,7 +2,7 @@ let app = angular.module('BitCoinTrackApp', []);
 
 app.controller('ctrBitCoin', ($scope, $log, $http) => {
    $scope.changes = [];
-   $scope.allchanges = [];
+   $scope.change_window = [];
    $scope.bitcoin = {};
    $scope.threshold = 0;
    $scope.timespan = 10;
@@ -11,11 +11,14 @@ app.controller('ctrBitCoin', ($scope, $log, $http) => {
    $scope.bitcoin.percent_change = 0;
 
    let checkRate = () => {
-      let first = $scope.changes[0];
+      let view_window = $scope.changes.length - $scope.timespan;
+      $log.info('window', view_window);
+      if(view_window < 0){ view_window = 0; }
+      $log.info('after check', view_window);
+      let first = $scope.changes[view_window];
       let last = $scope.changes[$scope.changes.length - 1];
       let long_delta = ((last - first) / first) * 100;
       $scope.bitcoin.percent_change = long_delta.toFixed(2);
-      if($scope.changes.length >= $scope.timespan){ $scope.changes.shift() }
       if(long_delta > $scope.threshold){
          let message = 'ALERT: ' + long_delta.toFixed(2) + '% crossed your ' + $scope.threshold + '% threshold';
          let notif_request = '/sendNotification/'+ encodeURI(message);
