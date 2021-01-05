@@ -1,60 +1,56 @@
 let app = angular.module('BitCoinTrackApp', []);
 
 app.controller('ctrBitCoin', ($scope, $log, $http) => {
-   let threshold = 0;
-   $scope.priceUSD = '$';
-   // call to node to populate database
-   $scope.populateDB = () => {
-      let query = '/populateDB/';   // build query
-      if($scope.keyW == null) { query += "headlines"; }
-      else { query += encodeURI($scope.keyW); }
-      $scope.queries = $http.get(query).then().catch(err => {});
-   };
+   $scope.changes = []
+   $scope.bitcoin = {};
+   $scope.threshold = 0;
+   $scope.previousRate = 1;
+   $scope.bitcoin.delta = 0;
+   $scope.bitcoin.percent_change = 0;
 
-   $scope.setThreshhold = () => {
-      threshold = $scope.threshold;
-      $log.info("threshold set: ", threshold);
+   let checkRate = () => {
+      let first = $scope.changes[0];
+      let last = $scope.changes[$scope.changes.length - 1];
+      let long_delta = ((last - first) / first) * 100;
+      $scope.bitcoin.percent_change = long_delta.toFixed(2);
+      if($scope.changes.length >= 10){ $scope.changes.shift() }
+      if(long_delta > $scope.threshold){ $log.info('Big changes are afoot ', long_delta, ' ganger this'); }
    }
 
    let reqloop = setInterval(() => {
-      $scope.priceUSD = $http.get('/getBitCoinData')
+      $scope.bitcoin = $http.get('/getBitCoinData')
          .then( response => {
-            $log.info(response.data);
-            console.log(response.data);
-            $scope.priceUSD = response.data
-         }
-
-         ).catch(err => { $log.info(err)});
-      $log.info($scope.priceUSD);
+            let priceRay = response.data.rate.split("");
+            priceRay.splice(-2,2);
+            let price = "$";
+            price += priceRay.join("");
+            price += ' USD';
+            $scope.bitcoin.priceUSD = price;
+            $scope.rate = response.data.rate_float;
+            $scope.bitcoin.delta = (($scope.rate - $scope.previousRate) / $scope.previousRate) * 100;
+            $scope.previousRate = $scope.rate;
+            $scope.changes.push($scope.rate);
+            checkRate();
+            $log.info($scope.bitcoin);
+         })
+         .catch(err => { $log.info(err)});
    }, 60000);
 
-   // call to node to return page with data pullled from mongo
-   $scope.displayDB = () => {
-      let mongo_route = "/displayDB";
-      $scope.news = $http.get(mongo_route).then(response => {
-         $scope.news = response.data.articles; // store data in scoped varible
-         $scope.queries = response.data.queries;
-      }, reason => { // function does not fire log error
-         $scope.error = reason.data;
-         $log.info(reason);
-      });
-   };
-
-   // reset db by making request to node which will run mongoose
-   $scope.resetDB = () => {
-      let mongo_drop = '/resetDB';
-      $http.get(mongo_drop).then().catch(err => {});
-   };
    let init = () => {
-      $scope.priceUSD = $http.get('/getBitCoinData')
-         .then( response => {
-            $log.info(response.data);
-            console.log(response.data);
-            $scope.priceUSD = response.data
-         }
-
-         ).catch(err => { $log.info(err)});
-      $log.info($scope.priceUSD);
+      $scope.bitcoin.priceUSD = $http.get('/getBitCoinData')
+      .then( response => {
+         let priceRay = response.data.rate.split("");
+         priceRay.splice(-2,2);
+         let price = "$";
+         price += priceRay.join("");
+         price += ' USD';
+         $scope.bitcoin.priceUSD = price;
+         $scope.rate = response.data.rate_float;
+         $scope.previousRate = $scope.rate;
+         $scope.changes.push($scope.rate);
+         $log.info($scope.bitcoin);
+      })
+      .catch(err => { $log.info(err)});
    };
    init();
 });

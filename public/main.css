@@ -1,5 +1,5 @@
 body {
-   background-color: rgb(22, 22, 22);
+   background-color: rgb(33, 31, 31);
    color: rgb(59, 255, 249);
    font-family: 'Baloo Bhai 2', cursive;
 }
@@ -10,7 +10,6 @@ body {
 }
 .queries {
    width: 100%;
-
    margin-bottom: 20px;
 }
 
@@ -45,6 +44,7 @@ body {
 .searchBar, #name, {
    background-color: rgb(28, 37, 47);
    border-radius: 10px;
+   border: none;
    padding: 5px;
    color: white;
 }
@@ -57,6 +57,7 @@ body {
    margin-top: 10px;
    margin-bottom: 10px;
    padding: 7px;
+   width: 50px;
 }
 
 #search:hover, #headline:hover, #buildDB:hover, #readDB:hover, #exportDB:hover, #resetDB:hover, #name:hover {
@@ -72,13 +73,6 @@ h1 {
    font-family: 'Comfortaa', cursive;
 }
 
-img {
-   text-align: center;
-   border-radius: 5px;
-   margin: auto;
-   max-width: 60%;
-}
-
 .center {
    margin: auto;
    padding: 10px;
@@ -86,14 +80,4 @@ img {
 
 h4 {
    padding: 5px;
-   color: rgb(42, 205, 94);
-}
-
-.ng-show {
-  max-height: auto;
-  -webkit-transition: max-height linear 0.9s;
-  -moz-transition: max-height linear 0.9s;
-  -o-transition: max-height linear 0.9s;
-  transition: max-height linear 0.9s;
-  overflow: hidden;
 }
