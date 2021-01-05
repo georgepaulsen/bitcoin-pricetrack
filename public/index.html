@@ -14,11 +14,13 @@
 <!-- angular module and controller function will be acceessible over the whole body -->
 
 <body ng-app="BitCoinTrackApp" ng-controller="ctrBitCoin">
-   <h1 class="text-center display-3">Bit Coin Tracker</h1>
+   <h1 class="text-center display-3">Bitcoin Tracker</h1>
 <!-- buttons to populate, display, export and reset the database -->
    <form class="active-cyan-3 active-cyan-4 mb-4 searchBar text-center">
-      <label for="search">Enter Percent change threshold: </label>
-      <input type="text" id="search" name="threshold" ng-model="threshold" placeholder="%" />
+      <label for="search">Percent change threshold: </label>
+      <input type="number" id="search" name="threshold" ng-model="threshold" placeholder="%" />
+      <label for="search">Percent change timespan: </label>
+      <input type="number" id="search2" name="threshold" ng-model="timespan" placeholder="Time" />
    </form>
    <div class="container">
       <section class="queries">
@@ -29,10 +31,9 @@
                <h2 class='text-center'> {{bitcoin.priceUSD}} </h2>
             </section>
             <section ng-model="bitcoin" class='text-center col-sm-6 card'>
-               <h1 class="text-center">Percent Change 10 mins</h1>
+               <h1 class="text-center" ng-model="timespan">Percent Change {{timespan}} mins</h1>
                <h2 class='text-center'> {{bitcoin.percent_change}}%</h2>
             </section>
-
          </div>
       </section>
    </div>

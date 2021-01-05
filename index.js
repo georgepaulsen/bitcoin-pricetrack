@@ -3,6 +3,7 @@
 const express = require('express');
 const axios = require('axios');
 const app = express();
+const notifier = require('node-notifier');
 const port = 3000;
 
 
@@ -22,6 +23,17 @@ app.get('/getBitCoinData', (req,res) => {
       .catch(err => {
          res.send(err);
       });
+});
+
+app.get('/sendNotification/:message', (req,res) => {
+   console.log('Sending notificaiton...');
+   // Object
+   let message = '' + req.params.message;
+   notifier.notify({
+     title: 'Bitcoin Tracker',
+     message: '' + message
+   });
+   res.status(200).send('Notifcation sent');
 });
 
 // If you ever want to stop it...  clearInterval(requestLoop)

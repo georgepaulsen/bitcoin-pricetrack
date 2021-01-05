@@ -1,9 +1,11 @@
 let app = angular.module('BitCoinTrackApp', []);
 
 app.controller('ctrBitCoin', ($scope, $log, $http) => {
-   $scope.changes = []
+   $scope.changes = [];
+   $scope.allchanges = [];
    $scope.bitcoin = {};
    $scope.threshold = 0;
+   $scope.timespan = 10;
    $scope.previousRate = 1;
    $scope.bitcoin.delta = 0;
    $scope.bitcoin.percent_change = 0;
@@ -13,8 +15,13 @@ app.controller('ctrBitCoin', ($scope, $log, $http) => {
       let last = $scope.changes[$scope.changes.length - 1];
       let long_delta = ((last - first) / first) * 100;
       $scope.bitcoin.percent_change = long_delta.toFixed(2);
-      if($scope.changes.length >= 10){ $scope.changes.shift() }
-      if(long_delta > $scope.threshold){ $log.info('Big changes are afoot ', long_delta, ' ganger this'); }
+      if($scope.changes.length >= $scope.timespan){ $scope.changes.shift() }
+      if(long_delta > $scope.threshold){
+         let message = 'ALERT: ' + long_delta.toFixed(2) + '% crossed your ' + $scope.threshold + '% threshold';
+         let notif_request = '/sendNotification/'+ encodeURI(message);
+         let notif = $http.get(notif_request).then( resp => { $log.info(resp); }).catch();
+         $log.info(message);
+      }
    }
 
    let reqloop = setInterval(() => {

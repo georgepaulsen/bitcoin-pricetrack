@@ -13,7 +13,7 @@ body {
    margin-bottom: 20px;
 }
 
-.active-cyan-4 input[type=text]:focus:not([readonly]) {
+.active-cyan-4 input[type=number]:focus:not([readonly]) {
    padding: 5px;
    border-radius: 10px;
    border: 1px solid #4dd0e1;
@@ -21,7 +21,7 @@ body {
    color: white;
 }
 
-.active-cyan-3 input[type=text], .active-cyan-3 input[type=submit]  {
+.active-cyan-3 input[type=number], .active-cyan-3 input[type=submit]  {
    margin: auto;
    display: inline-block;
    background-color: rgb(28, 37, 47);
@@ -49,7 +49,7 @@ body {
    color: white;
 }
 
-#search, #headline, #buildDB, #readDB, #exportDB, #resetDB {
+#search, #search2, #headline, #buildDB, #readDB, #exportDB, #resetDB {
    border-radius: 10px;
    background-color: rgb(28, 37, 47);
    border: none;
@@ -60,7 +60,7 @@ body {
    width: 50px;
 }
 
-#search:hover, #headline:hover, #buildDB:hover, #readDB:hover, #exportDB:hover, #resetDB:hover, #name:hover {
+#search:hover, #search2:hover, #headline:hover, #buildDB:hover, #readDB:hover, #exportDB:hover, #resetDB:hover, #name:hover {
    background-color: rgb(49, 65, 82);
    transition: .5s;
    color: rgb(42, 205, 94);
